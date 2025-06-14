@@ -1,0 +1,16 @@
+
+import type { ReactNode } from "react";
+import Navbar from "../components/NavBar";
+
+type Props = {
+  children: ReactNode;
+};
+
+export default function MainLayout({ children }: Props) {
+  return (
+    <>
+      <Navbar />
+      <main style={{ padding: "1rem" }}>{children}</main>
+    </>
+  );
+}
