@@ -1,15 +1,19 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import useRegisterUser from "../hooks/useRegisterUser";
 
 const CreateAccount: React.FC = ()=>{
 
-    const [name, setName] = useState<String>('');
-    const [email, setEmail] = useState<String>('');
-    const [password, setPassword] = useState<String>('');
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
 
-    const handleRegister = ()=>{
-        
+    const {register, error} = useRegisterUser()
+
+
+    const handleRegister = async()=>{
+        const response = register({name, email, password})
     }
 
 
@@ -26,6 +30,9 @@ const CreateAccount: React.FC = ()=>{
                 <button onClick={handleRegister}>
                     Criar conta
                 </button>
+                {error && (
+                    <p style={{color: 'red'}}>{error}</p>
+                )}
                 <Link to="/login" style={{ marginRight: "1rem" }}>Já tenho uma conta</Link>
             </div>
 
