@@ -5,181 +5,175 @@ import Separator from '../components/Separator';
 import { IoCloseOutline, IoBrushOutline } from 'react-icons/io5';
 import ModalRegisterUser from '../components/ModalRegisterUser';
 import type { RegisterUser } from '../interfaces/RegisterUser';
-import useRegisterUser from '../hooks/useRegisterUser'
 import type { EditUser } from '../interfaces/EditUser';
 import type { User } from '../interfaces/User';
+import useRegisterUser from '../hooks/useRegisterUser';
 import useEditUser from '../hooks/useEditUser';
 import ModalAlertConfirmed from '../components/ModalAlertConfirmed';
 import useDeleteUser from '../hooks/useDeleteUser';
 
-
-
 const Home = () => {
-    const { user, token, logout } = useAuth();
-    const [users, setUsers] = useState<User[]>([]);
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
-    const [selectUser, setSelectUser] = useState<User | null>(null)
-    const {registerAdmin} = useRegisterUser()
-    const {editUserAdmin} = useEditUser()
-    const [modalDeletetUser, setModalDeleteUser] = useState<boolean>(false)
-    const [idDelete, setIdDelete] = useState<number|null>(null)
-    const {deleteUser} = useDeleteUser()
-    const [modeRegisterUser, setmodeRegisterUser] = useState<"create"|"editProfile"|"editUser" | null>(null)
+  const { user, token, logout } = useAuth();
+  const [users, setUsers] = useState<User[]>([]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
+  const [selectUser, setSelectUser] = useState<User | null>(null);
+  const { registerAdmin } = useRegisterUser();
+  const { editUserAdmin } = useEditUser();
+  const [modalDeletetUser, setModalDeleteUser] = useState<boolean>(false);
+  const [idDelete, setIdDelete] = useState<number | null>(null);
+  const { deleteUser } = useDeleteUser();
+  const [modeRegisterUser, setmodeRegisterUser] = useState<"create" | "editProfile" | "editUser" | null>(null);
+  const [selectedRole, setSelectedRole] = useState<string>(''); // "" para todos
 
-    useEffect(() => {
-        const getUsers = async () => {
-        const response = await axios.get('http://localhost:3000/users', {
-            headers: {
-            Authorization: `Bearer ${token}`,
-            },
-        });
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await axios.get('http://localhost:3000/users', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        setUsers(response.data);
-        };
+      setUsers(response.data);
+    };
 
-        getUsers();
-    }, []);
+    getUsers();
+  }, []);
 
+  const handleModalRegisterMember = () => {
+    setOpenModal(!openModal);
+  };
 
-    const handleModalRegisterMember = ()=>{
-        setOpenModal(!openModal)
+  const handleModalEditMember = (user: User | null, mode: "create" | "editProfile" | "editUser") => {
+    setOpenModal(true);
+    setSelectUser(user);
+    setmodeRegisterUser(mode);
+  };
+
+  const registerUser = async (user: RegisterUser) => {
+    const response = await registerAdmin(user);
+    if (response && response.user) {
+      setUsers((prev) => [...prev, response.user]);
     }
+    setOpenModal(false);
+  };
 
-    const handleModalEditMember = (user:User|null, mode:"create"|"editProfile"|"editUser")=>{
-      setOpenModal(!openModal)
-      setSelectUser(user)
-      setmodeRegisterUser(mode)
-    }
+  const editUser = async (userEdit: EditUser) => {
+    await editUserAdmin(userEdit);
+    setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit : u));
+    setOpenModal(false);
+  };
 
+  const onClose = () => {
+    setOpenModal(false);
+    setSelectUser(null);
+  };
 
-    const registerUser = async(user: RegisterUser)=>{
+  const onCloseDelete = () => {
+    setModalDeleteUser(false);
+  };
 
-        const response = await registerAdmin(user)
+  const handleDeleteUser = (id: number | null) => {
+    setIdDelete(id);
+    setModalDeleteUser(true);
+  };
 
+  const confirmedDeleteUser = async () => {
+    await deleteUser(idDelete);
+    setModalDeleteUser(false);
+    setUsers((prev) => prev.filter((user) => user.id !== idDelete));
+    setIdDelete(null);
+  };
 
-        if (response && response.user) {
-          setUsers((prev) => [...prev, response.user]);
-        }
-    
-        setOpenModal(false)
-    }
+  const filteredUsers = selectedRole
+    ? users.filter((u) => u.role === selectedRole)
+    : users;
 
-    const editUser = async(userEdit: EditUser)=>{
-      console.log(userEdit)
-      console.log(user)
-      await editUserAdmin(userEdit)
-      setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit : u));
-      setOpenModal(false)
-    }
-    
-    const onClose = ()=>{
-      setOpenModal(false)
-      setSelectUser(null)
-    }
-
-    const onCloseDelete = ()=>{
-      setModalDeleteUser(false)
-    }
-
-
-    const handleDeleteUser = (id: number|null)=>{
-      setIdDelete(id)
-      setModalDeleteUser(!modalDeletetUser)
-    }
-
-    const confirmedDeleteUser = async()=>{
-      
-      await deleteUser(idDelete)
-
-
-
-      setModalDeleteUser(false)
-      setUsers((prev) => prev.filter((user) => user.id !== idDelete));
-      setIdDelete(null)
-
-    }
-
-
-
-    return (
-        <div style={styles.container}>
-        <div style={styles.profileWrapper}>
-            <div style={styles.profileAvatar}>
-            <p style={styles.profileLetter}>{user?.name[0]}</p>
-            </div>
-
-            <div>
-            <p style={styles.profileName}>
-                {user?.name} - {user?.role.toUpperCase()}
-            </p>
-
-            <p style={styles.profileEmail}>Ultimo acesso: {user?.lastLogin?.toLocaleString()}</p>
-
-            <p style={styles.profileEmail}>{user?.email}</p>
-
-            <div style={styles.buttonGroup}>
-                <button style={styles.editButton} onClick={()=>{handleModalEditMember(user!, "editProfile")}}>Editar perfil</button>
-                <button style={styles.logoutButton} onClick={logout}>
-                  Sair
-                </button>
-            </div>
-            </div>
+  return (
+    <div style={styles.container}>
+      <div style={styles.profileWrapper}>
+        <div style={styles.profileAvatar}>
+          <p style={styles.profileLetter}>{user?.name[0]}</p>
         </div>
+        <div>
+          <p style={styles.profileName}>
+            {user?.name} - {user?.role.toUpperCase()}
+          </p>
+          <p style={styles.profileEmail}>Último acesso: {user?.lastLogin?.toLocaleString()}</p>
+          <p style={styles.profileEmail}>{user?.email}</p>
+          <div style={styles.buttonGroup}>
+            <button style={styles.editButton} onClick={() => handleModalEditMember(user!, "editProfile")}>Editar perfil</button>
+            <button style={styles.logoutButton} onClick={logout}>Sair</button>
+          </div>
+        </div>
+      </div>
 
-        {user?.role === 'admin' && (
-            <div style={styles.adminPanel}>
-            <div style={styles.registerButtonWrapper}>
-                <button style={styles.registerButton} onClick={()=>{handleModalEditMember(null,"create")}}>Cadastrar usuário</button>
+      {user?.role === 'admin' && (
+        <div style={styles.adminPanel}>
+          
+
+          <div style={styles.registerButtonWrapper}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center'}}>
+                <label>Filtrar por papel:</label>
+                <select
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
+                >
+                  <option value="">Todos</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">Usuário</option>
+                </select>
             </div>
+            <button style={styles.registerButton} onClick={() => handleModalEditMember(null, "create")}>Cadastrar usuário</button>
+          </div>
 
-            <Separator height={2} />
+          <Separator height={2} />
 
-            <div style={styles.userListWrapper}>
-                <h1>Usuários</h1>
-                <div style={styles.userGrid}>
-                  {users.map((item, index) => (
-                      <div key={index} style={styles.userCard}>
-                        <div style={styles.userAvatar}>
-                            <p style={styles.userInitial}>{item.name[0].toUpperCase()}</p>
-                        </div>
-
-                        <p>{item.name}</p>
-                        <p>{item.role}</p>
-                        <p>{item.email}</p>
-                        <p>{item.lastLogin?.toLocaleString()}</p>
-                        
-
-                        <div style={styles.cardButtons}>
-                            <button style={styles.deleteButton} onClick={()=>{handleDeleteUser(item.id ?? null)}}>
-                              <IoCloseOutline size={20} color="black" />
-                            </button>
-                            <button style={styles.editUserButton} onClick={()=>{handleModalEditMember(item, "editUser")}}>
-                              <IoBrushOutline size={20} color="black" />
-                            </button>
-                        </div>
-                      </div>
-                  ))}
+          <div style={styles.userListWrapper}>
+            <h1>Usuários</h1>
+            <div style={styles.userGrid}>
+              {filteredUsers.map((item, index) => (
+                <div key={index} style={styles.userCard}>
+                  <div style={styles.userAvatar}>
+                    <p style={styles.userInitial}>{item.name[0].toUpperCase()}</p>
+                  </div>
+                  <p>{item.name}</p>
+                  <p>{item.role}</p>
+                  <p>{item.email}</p>
+                  <p>{item.lastLogin?.toLocaleString()}</p>
+                  <div style={styles.cardButtons}>
+                    <button style={styles.deleteButton} onClick={() => handleDeleteUser(item.id ?? null)}>
+                      <IoCloseOutline size={20} color="black" />
+                    </button>
+                    <button style={styles.editUserButton} onClick={() => handleModalEditMember(item, "editUser")}>
+                      <IoBrushOutline size={20} color="white" />
+                    </button>
+                  </div>
                 </div>
+              ))}
             </div>
-            </div>
-        )}
-
-        {openModal && (
-            <ModalRegisterUser onClose={onClose} handleRegister={registerUser} userEdit={selectUser} handleEditUser={editUser} mode={modeRegisterUser}/>
-        )}
-
-
-        {modalDeletetUser && (
-          <ModalAlertConfirmed onCancel={onCloseDelete} onConfirm={confirmedDeleteUser}/>
-        )}
-
+          </div>
+        </div>
         
 
+      )}
 
+      {openModal && (
+        <ModalRegisterUser
+          onClose={onClose}
+          handleRegister={registerUser}
+          userEdit={selectUser}
+          handleEditUser={editUser}
+          mode={modeRegisterUser}
+        />
+      )}
 
-        </div>
-    );
+      {modalDeletetUser && (
+        <ModalAlertConfirmed onCancel={onCloseDelete} onConfirm={confirmedDeleteUser} />
+      )}
+    </div>
+  );
 };
 
 const styles = {
@@ -264,7 +258,7 @@ const styles = {
   },
   registerButtonWrapper: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'space-between',
   },
   registerButton: {
     background: '#4D47C3',
@@ -340,6 +334,5 @@ const styles = {
     cursor: 'pointer',
   },
 };
-
 
 export default Home;
