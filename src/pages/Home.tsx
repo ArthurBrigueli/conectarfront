@@ -113,6 +113,9 @@ const Home = () => {
             <p style={styles.profileName}>
                 {user?.name} - {user?.role.toUpperCase()}
             </p>
+
+            <p style={styles.profileEmail}>Ultimo acesso: {user?.lastLogin?.toLocaleString()}</p>
+
             <p style={styles.profileEmail}>{user?.email}</p>
 
             <div style={styles.buttonGroup}>
@@ -144,6 +147,8 @@ const Home = () => {
                         <p>{item.name}</p>
                         <p>{item.role}</p>
                         <p>{item.email}</p>
+                        <p>{item.lastLogin?.toLocaleString()}</p>
+                        
 
                         <div style={styles.cardButtons}>
                             <button style={styles.deleteButton} onClick={()=>{handleDeleteUser(item.id ?? null)}}>
