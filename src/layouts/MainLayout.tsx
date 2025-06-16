@@ -10,7 +10,7 @@ export default function MainLayout({ children }: Props) {
   return (
     <>
       <Navbar />
-      <main style={{ padding: "1rem" }}>{children}</main>
+      <main>{children}</main>
     </>
   );
 }

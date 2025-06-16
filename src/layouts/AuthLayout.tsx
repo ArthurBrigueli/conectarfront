@@ -7,7 +7,7 @@ type Props = {
 
 export default function AuthLayout({ children }: Props) {
   return (
-    <main style={{ padding: "2rem" }}>
+    <main>
       {children}
     </main>
   );

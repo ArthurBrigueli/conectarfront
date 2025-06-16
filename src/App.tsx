@@ -4,14 +4,17 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter } from 'react-router-dom'
 import AppRoutes from './routes/AppRoutes'
+import {AuthProvider} from './contexts/AuthUser'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <BrowserRouter>
-      <AppRoutes/>  
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes/>  
+      </BrowserRouter>
+    </AuthProvider>
+    
   )
 }
 
