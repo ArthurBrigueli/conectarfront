@@ -9,9 +9,10 @@ interface ModalRegisterUserProps {
   handleRegister: (user: RegisterUser) => void;
   userEdit?: User | null
   handleEditUser: (user:EditUser) => void
+  mode: "create"|"editProfile"|"editUser" | null
 }
 
-const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({ onClose, handleRegister, userEdit, handleEditUser }) => {
+const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({ onClose, handleRegister, userEdit, handleEditUser, mode }) => {
   const [id, setId] = useState<number | undefined>(undefined)
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -47,11 +48,22 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({ onClose, handleRe
   }, [])
 
 
+  const handleSubmit = () => {
+    if (mode === "create") {
+      onSubmit();
+    } else if (mode === "editProfile") {
+      onSubmitEdit();
+    } else if (mode === "editUser") {
+      onSubmitEdit();
+    }
+  };
+
+
 
   return (
     <div style={styles.overlay} onClick={onClose}>
       <div style={styles.container} onClick={e => e.stopPropagation()}>
-        <h2 style={{ alignSelf: 'center' }}>{userEdit ? "Editar usuario":"Cadastro de usuario"}</h2>
+        <h2 style={{ alignSelf: 'center' }}>{userEdit ? "Editar perfil":"Cadastro de usuario"}</h2>
         <div style={styles.inputs}>
           <input
             style={styles.input}
@@ -68,13 +80,13 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({ onClose, handleRe
           <input
             style={styles.input}
             type="password"
-            placeholder="Digite a senha"
+            placeholder={userEdit ? "Editar a senha (Opcional)" : "Digite a senha"}
             onChange={e => setPassword(e.target.value)}
           />
           <input
             style={styles.input}
             type="password"
-            placeholder="Digite novamente a senha"
+            placeholder={userEdit ? "Digite novamente a senha caso tenha alterado":"Digite novamente a senha"}
             onChange={e => setConfirmPassword(e.target.value)}
           />
 
@@ -91,7 +103,7 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({ onClose, handleRe
         {error && <AlertError msg={error} />}
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <button style={styles.button} onClick={userEdit?onSubmitEdit:onSubmit}>
+          <button style={styles.button} onClick={handleSubmit}>
             {userEdit ? "Editar":"Cadastrar"}
           </button>
         </div>
