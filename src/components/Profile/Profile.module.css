@@ -1,0 +1,68 @@
+.profileWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.profileAvatar {
+  background: #27ae60;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.profileLetter {
+  font-size: 36px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.profileName {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #3a3a66;
+}
+
+.profileEmail {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.editButton {
+  width: 140px;
+  background: #27ae60;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logoutButton {
+  width: 140px;
+  background: #e5e7eb;
+  color: #1f2937;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}

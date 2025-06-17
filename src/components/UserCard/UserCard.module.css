@@ -1,0 +1,57 @@
+.userCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fafafa;
+  border: 1px solid #e5e7eb;
+  width: 280px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.userAvatar {
+  border: 2px solid #27ae60;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+}
+
+.userInitial {
+  font-size: 24px;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.cardButtons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.deleteButton {
+  flex: 1;
+  background: #f87171;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.editUserButton {
+  flex: 1;
+  background: #4b5563;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -1,6 +1,7 @@
 import axios from "axios"
 import type { EditUser } from "../interfaces/EditUser"
 import {useAuth} from '../contexts/AuthUser'
+import type { EditUserRegular } from "../interfaces/EditUserRegular"
 
 const useEditUser = ()=>{
 
@@ -18,8 +19,17 @@ const useEditUser = ()=>{
     } 
 
 
+    const editUserRegular = async(user: EditUserRegular)=>{
+        const response = await axios.post('http://localhost:3000/users/user/profile/edit', user,{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+    }
 
-    return {editUserAdmin}
+
+
+    return {editUserAdmin, editUserRegular}
 
 
 
