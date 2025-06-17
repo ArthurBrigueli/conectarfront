@@ -4,6 +4,8 @@ import type { ApiResponse } from "../interfaces/apiResponse";
 import {useAuth} from '../contexts/AuthUser'
 import type { User } from "../interfaces/User";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface UserRegisterData {
     name: string,
     email: string,
@@ -30,7 +32,7 @@ const useRegisterUser = () => {
 
     const registerAdmin = async(userData: UserRegisterDataAdmin): Promise<ResponseIn | null> =>{
         try {
-            const response = await axios.post<ResponseIn>('http://localhost:3000/users/admin/register', userData,{
+            const response = await axios.post<ResponseIn>(`${API_URL}/users/admin/register`, userData,{
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -56,7 +58,7 @@ const useRegisterUser = () => {
         setError(null);
 
         try {
-            const response = await axios.post<ResponseIn>('http://localhost:3000/users/register', {
+            const response = await axios.post<ResponseIn>(`${API_URL}/users/register`, {
                 name: userData.name,
                 email: userData.email,
                 password: userData.password

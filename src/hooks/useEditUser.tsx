@@ -2,6 +2,7 @@ import axios from "axios"
 import type { EditUser } from "../interfaces/EditUser"
 import {useAuth} from '../contexts/AuthUser'
 import type { EditUserRegular } from "../interfaces/EditUserRegular"
+const API_URL = import.meta.env.VITE_API_URL;
 
 const useEditUser = ()=>{
 
@@ -11,7 +12,7 @@ const useEditUser = ()=>{
     
 
     const editUserAdmin = async(userEdit: EditUser) => {
-        await axios.post('http://localhost:3000/users/user/edit', userEdit, {
+        await axios.post(`${API_URL}/users/user/edit`, userEdit, {
             headers: {
             "Authorization": `Bearer ${token}`
             }
@@ -20,7 +21,7 @@ const useEditUser = ()=>{
 
 
     const editUserRegular = async(user: EditUserRegular)=>{
-        await axios.post('http://localhost:3000/users/user/profile/edit', user,{
+        await axios.post(`${API_URL}/users/user/profile/edit`, user,{
             headers: {
                 "Authorization": `Bearer ${token}`
             }

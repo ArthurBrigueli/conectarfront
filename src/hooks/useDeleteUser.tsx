@@ -1,5 +1,6 @@
 import axios from "axios"
 import {useAuth} from '../contexts/AuthUser'
+const API_URL = import.meta.env.VITE_API_URL;
 
 const useDeleteUser = ()=>{
 
@@ -7,7 +8,7 @@ const useDeleteUser = ()=>{
 
 
     const deleteUser = async(idDelete: number|null)=>{
-        await axios.delete(`http://localhost:3000/users/user/delete/${idDelete}`, {
+        await axios.delete(`${API_URL}/users/user/delete/${idDelete}`, {
             headers: {
             'Authorization': `Bearer ${token}`
             }

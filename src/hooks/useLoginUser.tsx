@@ -3,6 +3,8 @@ import type { ApiResponse } from '../interfaces/apiResponse';
 import { useState } from 'react';
 import {useAuth} from '../contexts/AuthUser'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface userLogin{
     email:string,
     password:string
@@ -17,7 +19,7 @@ const useLoginUser = ()=>{
 
     const loginUser = async(userData: userLogin): Promise<ApiResponse | null>=>{
         try{
-            const response = await axios.post("http://localhost:3000/auth/login", {
+            const response = await axios.post(`${API_URL}/auth/login`, {
                 email: userData.email,
                 password: userData.password
             })

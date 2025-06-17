@@ -8,6 +8,8 @@ interface Props {
   setSortBy: (value: string) => void;
   order: 'asc' | 'desc';
   setOrder: (value: 'asc' | 'desc') => void;
+  status: 'Ativo' | 'Ausente'
+  setStatus: (value: 'Ativo' | 'Inativo' | 'Todos') =>void
 }
 
 const Filtros: React.FC<Props> = ({
@@ -17,6 +19,8 @@ const Filtros: React.FC<Props> = ({
   setSortBy,
   order,
   setOrder,
+  status,
+  setStatus
 }) => {
   return (
     <>
@@ -52,6 +56,24 @@ const Filtros: React.FC<Props> = ({
           <option value="asc">Crescente</option>
           <option value="desc">Decrescente</option>
         </select>
+
+        
+      </div>
+
+
+      <div className={styles.containerMarginTop}>
+        <label>Status:</label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value as 'Ativo' | 'Inativo' | 'Todos')}
+          className={styles.select}
+        >
+          <option value="">Todos</option>
+          <option value="Ativo">Ativo</option>
+          <option value="Inativo">Inativo</option>
+        </select>
+
+        
       </div>
     </>
   );

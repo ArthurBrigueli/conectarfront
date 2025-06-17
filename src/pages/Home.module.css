@@ -33,6 +33,8 @@
 .registerButtonWrapper {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .registerButton {
@@ -53,8 +55,38 @@
 }
 
 .userGrid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   padding-left: 20px;
-  flex-wrap: wrap;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .profileWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .registerButtonWrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .registerButton {
+    width: 100%;
+  }
+
+  .adminPanel {
+    padding: 16px;
+  }
+
+  .userGrid {
+    padding-left: 0;
+  }
 }

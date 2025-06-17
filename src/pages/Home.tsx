@@ -16,6 +16,8 @@ import Filtros from '../components/Filtros/Filtros';
 import Profile from '../components/Profile/Profile';
 import styles from './Home.module.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Home = () => {
 
   const { user, token, logout } = useAuth();
@@ -31,6 +33,8 @@ const Home = () => {
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('name');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+  const [status, setStatus] = useState<string>('');
+  
 
   useEffect(() => {
     const getUsers = async () => {
@@ -38,8 +42,9 @@ const Home = () => {
       if (selectedRole) queryParams.append('role', selectedRole);
       if (sortBy) queryParams.append('sortBy', sortBy);
       if (order) queryParams.append('order', order);
+      if(status) queryParams.append('status', status)
 
-      const response = await axios.get(`http://localhost:3000/users?${queryParams.toString()}`, {
+      const response = await axios.get(`${API_URL}/users?${queryParams.toString()}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +54,7 @@ const Home = () => {
     };
 
     getUsers();
-  }, [selectedRole, sortBy, order]);
+  }, [selectedRole, sortBy, order, status]);
 
 
   const handleModalEditMember = (user: User | null, mode: "create" | "editProfile" | "editUser") => {
@@ -108,7 +113,7 @@ const Home = () => {
         <div className={styles.adminPanel}>
           
           <div className={styles.registerButtonWrapper}>
-            <Filtros sortBy={sortBy} setSortBy={setSortBy} setSelectedRole={setSelectedRole} setOrder={setOrder} selectedRole={selectedRole} order={order}/>
+            <Filtros sortBy={sortBy} setSortBy={setSortBy} setSelectedRole={setSelectedRole} setOrder={setOrder} selectedRole={selectedRole} order={order} status={status} setStatus={setStatus}/>
             <button className={styles.registerButton} onClick={() => handleModalEditMember(null, "create")}>Cadastrar usuário</button>
           </div>
 
@@ -117,11 +122,22 @@ const Home = () => {
           <div className={styles.userListWrapper}>
             <h1>Usuários</h1>
             <div className={styles.userGrid}>
-              {users
-                .filter(users => users.id !== user.id)
-                .map((item, index) => (
-                  <UserCard item={item} index={index} handleDeleteUser={handleDeleteUser} handleModalEditMember={handleModalEditMember} />
-              ))}
+              {users.filter(u => u.id !== user.id).length === 0 ? (
+                <p>Nenhum usuário encontrado.</p>
+              ) : (
+                users
+                  .filter(u => u.id !== user.id)
+                  .map((item, index) => (
+                    <UserCard
+                      key={index}
+                      item={item}
+                      index={index}
+                      handleDeleteUser={handleDeleteUser}
+                      handleModalEditMember={handleModalEditMember}
+                    />
+                  ))
+              )}
+
             </div>
           </div>
         </div>

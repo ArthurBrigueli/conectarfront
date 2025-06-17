@@ -3,5 +3,6 @@ export interface User{
     name: string,
     email: string,
     role: string,
-    lastLogin?: Date
+    lastLogin?: Date,
+    isActive: boolean
 }

@@ -20,6 +20,7 @@
   align-items: center;
   margin-bottom: 10px;
   background-color: #ffffff;
+  position: relative;
 }
 
 .userInitial {
@@ -54,4 +55,11 @@
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.activeStatusDiv{
+  position: absolute;
+  left: 70%;
+  top: 70%;
+  border-radius: 100px;
 }
