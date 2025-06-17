@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthUser';
 import axios from 'axios';
 import Separator from '../components/Separator';
-import { IoCloseOutline, IoBrushOutline } from 'react-icons/io5';
 import ModalRegisterUser from '../components/ModalRegisterUser/ModalRegisterUser';
 import type { RegisterUser } from '../interfaces/RegisterUser';
 import type { EditUser } from '../interfaces/EditUser';
@@ -22,7 +21,6 @@ const Home = () => {
   const { user, token, logout } = useAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
   const [selectUser, setSelectUser] = useState<User | null>(null);
   const { registerAdmin } = useRegisterUser();
   const { editUserAdmin, editUserRegular } = useEditUser();

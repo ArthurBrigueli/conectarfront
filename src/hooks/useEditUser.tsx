@@ -11,7 +11,7 @@ const useEditUser = ()=>{
     
 
     const editUserAdmin = async(userEdit: EditUser) => {
-        const response = await axios.post('http://localhost:3000/users/user/edit', userEdit, {
+        await axios.post('http://localhost:3000/users/user/edit', userEdit, {
             headers: {
             "Authorization": `Bearer ${token}`
             }
@@ -20,7 +20,7 @@ const useEditUser = ()=>{
 
 
     const editUserRegular = async(user: EditUserRegular)=>{
-        const response = await axios.post('http://localhost:3000/users/user/profile/edit', user,{
+        await axios.post('http://localhost:3000/users/user/profile/edit', user,{
             headers: {
                 "Authorization": `Bearer ${token}`
             }

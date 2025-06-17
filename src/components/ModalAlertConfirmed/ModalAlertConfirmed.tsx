@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ModalAlertConfirmed.module.css';
 
 const ModalAlertConfirmed = ({ onCancel, onConfirm }: { onCancel: () => void; onConfirm: () => void }) => {
