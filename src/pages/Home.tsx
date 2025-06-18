@@ -28,7 +28,7 @@ const Home = () => {
   const { editUserAdmin, editUserRegular, loading:loadingEditUser } = useEditUser();
   const [modalDeletetUser, setModalDeleteUser] = useState<boolean>(false);
   const [idDelete, setIdDelete] = useState<number | null>(null);
-  const { deleteUser, loading:loadingDelete } = useDeleteUser();
+  const { deleteUser } = useDeleteUser();
   const [modeRegisterUser, setmodeRegisterUser] = useState<"create" | "editProfile" | "editUser" | null>(null);
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('name');
