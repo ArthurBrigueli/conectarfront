@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useLoginUser from "../hooks/useLoginUser";
 import styles from './Login.module.css'
+import { IoLogoGoogle } from "react-icons/io5";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -17,6 +18,12 @@ const Login: React.FC = () => {
       navigate("/");
     }
   };
+
+
+
+  const handleLoginGoogle = ()=>{
+    window.location.href = 'http://localhost:3000/auth/google';
+  }
 
   return (
     <div className={styles.container}>
@@ -38,9 +45,22 @@ const Login: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
         />
+
         <button onClick={handleLogin} className={styles.button}>
           Entrar
         </button>
+
+        
+        <div className={styles.loginContainer}>
+          <p className={styles.loginText}>Ou fazer login com</p>
+          <button className={styles.googleButton} onClick={handleLoginGoogle}>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png"
+              alt="Google logo"
+              className={styles.googleLogo}
+            />
+          </button>
+        </div>
 
         {error && <p className={styles.error}>{error}</p>}
 

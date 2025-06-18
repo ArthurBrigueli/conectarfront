@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import AuthLayout from "../layouts/AuthLayout";
 import CreateAccount from "../pages/CreatedAccount";
 import ProtectedRoute from "./ProtectedRoute";
+import OauthSuccess from "../pages/OauthSuccess";
 
 export default function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function AppRoutes() {
 
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/register" element={<AuthLayout><CreateAccount /></AuthLayout>} />
+      <Route path="/oauth-success" element={<OauthSuccess />} />
     </Routes>
   );
 }
