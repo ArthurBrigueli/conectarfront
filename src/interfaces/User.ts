@@ -4,5 +4,6 @@ export interface User{
     email: string,
     role: string,
     lastLogin?: Date,
-    isActive: boolean
+    isActive?: boolean
+    
 }

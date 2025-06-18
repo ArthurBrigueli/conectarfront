@@ -33,7 +33,7 @@ const Home = () => {
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('name');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-  const [status, setStatus] = useState<string>('');
+  const [status, setStatus] = useState<'Ativo'|'Inativo'|'Todos'>('Todos');
   
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Home = () => {
 
   const editUser = async (userEdit: EditUser) => {
     await editUserAdmin(userEdit);
-    setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit : u));
+    setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit as User : u));
     setOpenModal(false);
   };
 

@@ -8,7 +8,7 @@ interface Props {
   setSortBy: (value: string) => void;
   order: 'asc' | 'desc';
   setOrder: (value: 'asc' | 'desc') => void;
-  status: 'Ativo' | 'Ausente'
+  status: 'Ativo' | 'Inativo' | 'Todos'
   setStatus: (value: 'Ativo' | 'Inativo' | 'Todos') =>void
 }
 
