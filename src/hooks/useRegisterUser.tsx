@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useState } from "react"
-import type { ApiResponse } from "../interfaces/apiResponse";
 import {useAuth} from '../contexts/AuthUser'
 import type { User } from "../interfaces/User";
 
