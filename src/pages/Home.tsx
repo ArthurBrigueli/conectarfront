@@ -33,7 +33,7 @@ const Home = () => {
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('name');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-  const [status, setStatus] = useState<'Ativo'|'Inativo'|'Todos'>('Todos');
+  const [status, setStatus] = useState<string>('');
   
 
   useEffect(() => {
