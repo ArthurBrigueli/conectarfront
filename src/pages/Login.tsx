@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useLoginUser from "../hooks/useLoginUser";
 import styles from './Login.module.css'
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -21,7 +22,7 @@ const Login: React.FC = () => {
 
 
   const handleLoginGoogle = ()=>{
-    window.location.href = 'http://localhost:3000/auth/google';
+    window.location.href = `${API_URL}/auth/google`;
   }
 
   return (
