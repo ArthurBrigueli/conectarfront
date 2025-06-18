@@ -8,8 +8,8 @@ interface Props {
   setSortBy: (value: string) => void;
   order: 'asc' | 'desc';
   setOrder: (value: 'asc' | 'desc') => void;
-  status: 'Ativo' | 'Inativo' | 'Todos'
-  setStatus: (value: 'Ativo' | 'Inativo' | 'Todos') =>void
+  status: string
+  setStatus: (value:string)=>void
 }
 
 const Filtros: React.FC<Props> = ({
@@ -65,7 +65,7 @@ const Filtros: React.FC<Props> = ({
         <label>Status:</label>
         <select
           value={status}
-          onChange={(e) => setStatus(e.target.value as 'Ativo' | 'Inativo' | 'Todos')}
+          onChange={(e) => setStatus(e.target.value)}
           className={styles.select}
         >
           <option value="">Todos</option>
