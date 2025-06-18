@@ -10,7 +10,7 @@ const CreateAccount: React.FC = () => {
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const { register, error, loading } = useRegisterUser();
+  const { register, loading, errorRegister } = useRegisterUser();
 
   const handleRegister = async () => {
     const response = await register({ name, email, password });
@@ -54,7 +54,7 @@ const CreateAccount: React.FC = () => {
           )}
         </button>
 
-        {error && <p className={styles.error}>{error}</p>}
+        {errorRegister && <p className={styles.error}>{errorRegister}</p>}
 
         <Link to="/login" className={styles.link}>
           Já tenho uma conta

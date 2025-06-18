@@ -24,7 +24,7 @@ export default function AppRoutes() {
 
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/register" element={<AuthLayout><CreateAccount /></AuthLayout>} />
-      <Route path="/login/oauth-success" element={<OauthSuccess />} />
+      <Route path="/oauth-success" element={<OauthSuccess />} />
     </Routes>
   );
 }
