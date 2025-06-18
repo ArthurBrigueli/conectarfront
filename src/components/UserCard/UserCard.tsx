@@ -17,7 +17,7 @@ const UserCard: React.FC<Props> = ({ item, index, handleDeleteUser, handleModalE
       <div className={styles.userAvatar}>
         <p className={styles.userInitial}>{item.name[0].toUpperCase()}</p>
         <div className={styles.activeStatusDiv}>
-          <IsActiveStatus isActive={item.isActive}/>
+          <IsActiveStatus isActive={item.isActive!}/>
         </div>
       </div>
       <p>{item.name}</p>
