@@ -27,9 +27,11 @@ interface ResponseIn {
 const useRegisterUser = () => {
     const [error, setError] = useState<string | null>(null);
     const {token} = useAuth()
+    const [loading, setLoading] = useState<boolean>(false)
 
 
     const registerAdmin = async(userData: UserRegisterDataAdmin): Promise<ResponseIn | null> =>{
+        setLoading(true)
         try {
             const response = await axios.post<ResponseIn>(`${API_URL}/users/admin/register`, userData,{
                 headers: {
@@ -37,7 +39,7 @@ const useRegisterUser = () => {
                 }
             });
 
-            console.log(response.data.user)
+            setLoading(false)
 
 
             return { status: response.status, user: response.data.user}; 
@@ -49,12 +51,15 @@ const useRegisterUser = () => {
                 setError("Erro do servidor");
             }
 
+            setLoading(false)
+
             return null;
         }
     }
 
     const register = async (userData: UserRegisterData): Promise<ResponseIn | null> => {
         setError(null);
+        setLoading(true)
 
         try {
             const response = await axios.post<ResponseIn>(`${API_URL}/users/register`, {
@@ -62,6 +67,8 @@ const useRegisterUser = () => {
                 email: userData.email,
                 password: userData.password
             });
+
+            setLoading(false)
 
             return { status: response.status, user: response.data.user }; 
         } catch (error: any) {
@@ -72,11 +79,13 @@ const useRegisterUser = () => {
                 setError("Erro do servidor");
             }
 
+            setLoading(false)
+
             return null;
         }
     }
 
-    return { register, error, registerAdmin };
+    return { register, error, registerAdmin, loading };
 }
 
 export default useRegisterUser;

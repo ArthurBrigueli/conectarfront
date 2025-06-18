@@ -13,6 +13,8 @@ interface ModalRegisterUserProps {
   handleEditUser: (user: EditUser) => void;
   handleEditUserProfile: (user: EditUserRegular) => void;
   mode: 'create' | 'editProfile' | 'editUser' | null;
+  loadingRegisterUser: boolean
+  loadingEditUser: boolean
 }
 
 const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
@@ -22,6 +24,8 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
   handleEditUser,
   mode,
   handleEditUserProfile,
+  loadingRegisterUser,
+  loadingEditUser
 }) => {
   const [id, setId] = useState<number | undefined>(undefined);
   const [name, setName] = useState<string>('');
@@ -115,8 +119,13 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
         {error && <AlertError msg={error} />}
 
         <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={handleSubmit}>
-            {userEdit ? 'Editar' : 'Cadastrar'}
+          <button className={styles.button} onClick={handleSubmit} disabled={loadingEditUser||loadingRegisterUser}>
+            {loadingRegisterUser || loadingEditUser ? (
+              "Carregando..."
+            ):(
+              userEdit ? 'Editar' : 'Cadastrar'
+            )}
+            
           </button>
         </div>
       </div>

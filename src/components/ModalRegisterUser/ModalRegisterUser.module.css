@@ -47,6 +47,17 @@
   transition: background-color 0.3s ease;
 }
 
+.button:disabled{
+  background-color: #8dd39d;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .buttonContainer {
   display: flex;
   justify-content: center;

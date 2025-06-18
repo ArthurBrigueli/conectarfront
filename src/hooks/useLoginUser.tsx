@@ -15,9 +15,11 @@ const useLoginUser = ()=>{
 
     const [error, setError] = useState<string | null>(null)
     const {login} = useAuth()
+    const [loading, setLoading] = useState<boolean>(false)
     
 
     const loginUser = async(userData: userLogin): Promise<ApiResponse | null>=>{
+        setLoading(true)
         try{
             const response = await axios.post(`${API_URL}/auth/login`, {
                 email: userData.email,
@@ -26,11 +28,13 @@ const useLoginUser = ()=>{
 
             if(response.status == 201){
                 login(response.data.access_token, response.data.user)
+                setLoading(false)
                 return {
                     statusCode: 201,
                     message: "Login realizado com sucesso"
                 };
             }else{
+                setLoading(false)
                 return {
                     statusCode: response.status,
                     message: "Algo deu errado no login"
@@ -38,6 +42,7 @@ const useLoginUser = ()=>{
             }
             
         }catch(error: any){
+            setLoading(true)
             if(axios.isAxiosError(error)){
                 const message = error.response?.data?.message || "Erro na requisição";
                 setError(message);
@@ -45,13 +50,14 @@ const useLoginUser = ()=>{
                 setError("Erro do servidor")
                 
             }
+            setLoading(false)
         }
 
         return null
     }
 
 
-    return {loginUser, error}
+    return {loginUser, error, loading}
 
 
 }

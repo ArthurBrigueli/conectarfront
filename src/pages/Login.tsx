@@ -5,14 +5,13 @@ import useLoginUser from "../hooks/useLoginUser";
 import styles from './Login.module.css'
 const API_URL = import.meta.env.VITE_API_URL;
 
-console.log(API_URL)
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const { loginUser, error } = useLoginUser();
+  const { loginUser, error, loading } = useLoginUser();
 
   const handleLogin = async () => {
     const response = await loginUser({ email, password });
@@ -48,8 +47,14 @@ const Login: React.FC = () => {
           className={styles.input}
         />
 
-        <button onClick={handleLogin} className={styles.button}>
-          Entrar
+
+        
+        <button onClick={handleLogin} className={styles.button} disabled={loading}>
+          {loading ? (
+              "Entrando..."
+          ):(
+            "Entrar"
+          )}
         </button>
 
         

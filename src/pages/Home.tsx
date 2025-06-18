@@ -24,11 +24,11 @@ const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [selectUser, setSelectUser] = useState<User | null>(null);
-  const { registerAdmin } = useRegisterUser();
-  const { editUserAdmin, editUserRegular } = useEditUser();
+  const { registerAdmin, loading:loadingRegisterUser } = useRegisterUser();
+  const { editUserAdmin, editUserRegular, loading:loadingEditUser } = useEditUser();
   const [modalDeletetUser, setModalDeleteUser] = useState<boolean>(false);
   const [idDelete, setIdDelete] = useState<number | null>(null);
-  const { deleteUser } = useDeleteUser();
+  const { deleteUser, loading:loadingDelete } = useDeleteUser();
   const [modeRegisterUser, setmodeRegisterUser] = useState<"create" | "editProfile" | "editUser" | null>(null);
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('name');
@@ -153,6 +153,8 @@ const Home = () => {
           handleEditUser={editUser}
           mode={modeRegisterUser}
           handleEditUserProfile={handleEditUserProfile}
+          loadingRegisterUser={loadingRegisterUser}
+          loadingEditUser={loadingEditUser}
         />
       )}
 

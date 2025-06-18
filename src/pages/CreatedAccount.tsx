@@ -10,7 +10,7 @@ const CreateAccount: React.FC = () => {
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const { register, error } = useRegisterUser();
+  const { register, error, loading } = useRegisterUser();
 
   const handleRegister = async () => {
     const response = await register({ name, email, password });
@@ -46,8 +46,12 @@ const CreateAccount: React.FC = () => {
           className={styles.input}
         />
 
-        <button onClick={handleRegister} className={styles.button}>
-          Criar conta
+        <button onClick={handleRegister} className={styles.button} disabled={loading}>
+          {loading ? (
+            "Carregando..."
+          ):(
+            "Criar conta"
+          )}
         </button>
 
         {error && <p className={styles.error}>{error}</p>}
