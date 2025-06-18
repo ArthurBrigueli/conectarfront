@@ -5,6 +5,8 @@ import useLoginUser from "../hooks/useLoginUser";
 import styles from './Login.module.css'
 const API_URL = import.meta.env.VITE_API_URL;
 
+console.log(API_URL)
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
