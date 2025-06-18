@@ -24,8 +24,8 @@ const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [selectUser, setSelectUser] = useState<User | null>(null);
-  const { registerAdmin, loading:loadingRegisterUser } = useRegisterUser();
-  const { editUserAdmin, editUserRegular, loading:loadingEditUser } = useEditUser();
+  const { registerAdmin, loading:loadingRegisterUser, errorRegister } = useRegisterUser();
+  const { editUserAdmin, editUserRegular, loading:loadingEditUser, error } = useEditUser();
   const [modalDeletetUser, setModalDeleteUser] = useState<boolean>(false);
   const [idDelete, setIdDelete] = useState<number | null>(null);
   const { deleteUser } = useDeleteUser();
@@ -67,14 +67,18 @@ const Home = () => {
     const response = await registerAdmin(user);
     if (response && response.user) {
       setUsers((prev) => [...prev, response.user]);
+      setOpenModal(false);
     }
-    setOpenModal(false);
+
   };
 
   const editUser = async (userEdit: EditUser) => {
-    await editUserAdmin(userEdit);
-    setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit as User : u));
-    setOpenModal(false);
+    const sucess = await editUserAdmin(userEdit);
+    if(sucess){
+      setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit as User : u));
+      setOpenModal(false);
+    }
+    
   };
 
   const onClose = () => {
@@ -99,8 +103,13 @@ const Home = () => {
   };
 
   const handleEditUserProfile = async(user: EditUserRegular)=>{
-    await editUserRegular(user)
-    setOpenModal(false)
+    const sucess = await editUserRegular(user)
+
+    if(sucess){
+      setOpenModal(false)
+    }
+    
+    
   }
 
   return (
@@ -155,6 +164,8 @@ const Home = () => {
           handleEditUserProfile={handleEditUserProfile}
           loadingRegisterUser={loadingRegisterUser}
           loadingEditUser={loadingEditUser}
+          error={error}
+          errorRegister={errorRegister}
         />
       )}
 

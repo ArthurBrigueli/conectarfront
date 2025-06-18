@@ -25,7 +25,7 @@ interface ResponseIn {
 
 
 const useRegisterUser = () => {
-    const [error, setError] = useState<string | null>(null);
+    const [errorRegister, setErrorRegister] = useState<string | null>(null);
     const {token} = useAuth()
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -46,9 +46,9 @@ const useRegisterUser = () => {
         } catch (error: any) {
             if (axios.isAxiosError(error)) {
                 const message = error.response?.data?.message || "Erro na requisição";
-                setError(message);
+                setErrorRegister(message);
             } else {
-                setError("Erro do servidor");
+                setErrorRegister("Erro do servidor");
             }
 
             setLoading(false)
@@ -58,7 +58,7 @@ const useRegisterUser = () => {
     }
 
     const register = async (userData: UserRegisterData): Promise<ResponseIn | null> => {
-        setError(null);
+        setErrorRegister(null);
         setLoading(true)
 
         try {
@@ -74,9 +74,9 @@ const useRegisterUser = () => {
         } catch (error: any) {
             if (axios.isAxiosError(error)) {
                 const message = error.response?.data?.message || "Erro na requisição";
-                setError(message);
+                setErrorRegister(message);
             } else {
-                setError("Erro do servidor");
+                setErrorRegister("Erro do servidor");
             }
 
             setLoading(false)
@@ -85,7 +85,7 @@ const useRegisterUser = () => {
         }
     }
 
-    return { register, error, registerAdmin, loading };
+    return { register, errorRegister, registerAdmin, loading };
 }
 
 export default useRegisterUser;

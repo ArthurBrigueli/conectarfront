@@ -29,7 +29,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <div className={styles.brand}>Conécta</div>
+        <div className={styles.brand}>Conéctar</div>
         <h1 className={styles.title}>Login</h1>
 
         <input

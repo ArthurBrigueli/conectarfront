@@ -15,17 +15,21 @@ interface ModalRegisterUserProps {
   mode: 'create' | 'editProfile' | 'editUser' | null;
   loadingRegisterUser: boolean
   loadingEditUser: boolean
+  error: string |null
+  errorRegister: string | null
 }
 
 const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
   onClose,
+  error:errorapi,
   handleRegister,
   userEdit,
   handleEditUser,
   mode,
   handleEditUserProfile,
   loadingRegisterUser,
-  loadingEditUser
+  loadingEditUser,
+  errorRegister
 }) => {
   const [id, setId] = useState<number | undefined>(undefined);
   const [name, setName] = useState<string>('');
@@ -33,7 +37,6 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [role, setRole] = useState<'user' | 'admin'>('user');
-
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = () => {
@@ -50,7 +53,7 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
     handleEditUser({ id, name, email, password, role });
   };
 
-  const onSubmitEditUser = () => {
+  const onSubmitEditUser = async() => {
     handleEditUserProfile({ id, name, email, password });
   };
 
@@ -117,6 +120,8 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
         </div>
 
         {error && <AlertError msg={error} />}
+        {errorapi && <AlertError msg={errorapi}/>}
+        {errorRegister && <AlertError msg={errorRegister}/>}
 
         <div className={styles.buttonContainer}>
           <button className={styles.button} onClick={handleSubmit} disabled={loadingEditUser||loadingRegisterUser}>
