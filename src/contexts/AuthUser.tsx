@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import type { EditUserRegular } from "../interfaces/EditUserRegular";
 
 interface User {
   id: number;
@@ -15,6 +16,7 @@ interface AuthContextProps {
   logout: () => void;
   isAuthenticated: boolean;
   role: string | null
+  editUser: (userEdit: EditUserRegular)=>void
 }
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -45,6 +47,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
+
+  const editUser = (userEdit: EditUserRegular) => {
+    if (!user) return;
+    setUser(prevUser => {
+      const updatedUser = {
+        ...prevUser!,
+        ...userEdit
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -64,7 +79,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         logout,
         isAuthenticated: Boolean(token),
-        role
+        role,
+        editUser
         
       }}
     >

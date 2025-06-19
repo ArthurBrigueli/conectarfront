@@ -77,8 +77,14 @@ const Usuarios = ()=>{
     const editUser = async (userEdit: EditUser) => {
         const sucess = await editUserAdmin(userEdit);
         if(sucess){
-        setUsers((prev) => prev.map(u => u.id === userEdit.id ? userEdit as User : u));
-        setOpenModal(false);
+            setUsers((prev) =>
+                prev.map(u =>
+                    u.id === userEdit.id
+                    ? { ...u, ...userEdit }
+                    : u
+                )
+            );
+            setOpenModal(false);
         }
         
     };
@@ -108,7 +114,7 @@ const Usuarios = ()=>{
         const sucess = await editUserRegular(user)
 
         if(sucess){
-        setOpenModal(false)
+            setOpenModal(false)
         }
         
         
@@ -151,16 +157,16 @@ const Usuarios = ()=>{
 
           {openModal && (
             <ModalRegisterUser
-            onClose={onClose}
-            handleRegister={registerUser}
-            userEdit={selectUser}
-            handleEditUser={editUser}
-            mode={modeRegisterUser}
-            handleEditUserProfile={handleEditUserProfile}
-            loadingRegisterUser={loadingRegisterUser}
-            loadingEditUser={loadingEditUser}
-            error={error}
-            errorRegister={errorRegister}
+                onClose={onClose}
+                handleRegister={registerUser}
+                userEdit={selectUser}
+                handleEditUser={editUser}
+                mode={modeRegisterUser}
+                handleEditUserProfile={handleEditUserProfile}
+                loadingRegisterUser={loadingRegisterUser}
+                loadingEditUser={loadingEditUser}
+                error={error}
+                errorRegister={errorRegister}
             />
         )}
 

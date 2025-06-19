@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 const Home = () => {
 
-  const { user, logout } = useAuth();
+  const { user, logout, editUser } = useAuth();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [selectUser, setSelectUser] = useState<User | null>(null);
   const { editUserRegular, loading:loadingEditUser, error } = useEditUser();
@@ -38,14 +38,12 @@ const Home = () => {
   };
 
 
-  const handleEditUserProfile = async(user: EditUserRegular)=>{
-    const sucess = await editUserRegular(user)
-
-    if(sucess){
-      setOpenModal(false)
-    }
-    
-    
+  const handleEditUserProfile = async(user: EditUserRegular) => {     
+    const success = await editUserRegular(user);      
+    if(success){       
+      editUser(user);  
+      setOpenModal(false);     
+    }             
   }
 
   return (
