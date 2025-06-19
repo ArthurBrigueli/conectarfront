@@ -6,11 +6,17 @@ import AuthLayout from "../layouts/AuthLayout";
 import CreateAccount from "../pages/CreatedAccount";
 import ProtectedRoute from "./ProtectedRoute";
 import OauthSuccess from "../pages/OauthSuccess";
+import Usuarios from "../pages/Usuarios";
+import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
+import AccessDenied from "../pages/AccessDenied";
 
 export default function AppRoutes() {
   return (
     <Routes>
 
+
+      <Route path="/403" element={<AccessDenied />} />
+      
       <Route
         path="/"
         element={
@@ -19,6 +25,19 @@ export default function AppRoutes() {
               <Home />
             </MainLayout>
           </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/usuarios"
+        element={
+          <PrivateRoute requiredRole="admin">
+            <ProtectedRoute>
+              <MainLayout>
+                <Usuarios />
+              </MainLayout>
+            </ProtectedRoute>
+          </PrivateRoute>
         }
       />
 

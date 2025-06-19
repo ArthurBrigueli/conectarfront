@@ -29,7 +29,7 @@ const UserCard: React.FC<Props> = ({ item, index, handleDeleteUser, handleModalE
           <IoCloseOutline size={20} color="black" />
         </button>
         <button className={styles.editUserButton} onClick={() => handleModalEditMember(item, "editUser")}>
-          <IoBrushOutline size={20} color="white" />
+          <IoBrushOutline size={20} color="black" />
         </button>
       </div>
     </div>

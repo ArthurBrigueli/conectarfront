@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import { useAuth } from "../../contexts/AuthUser";
 import styles from "./NavBar.module.css";
 
@@ -8,13 +8,20 @@ const NavBar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.leftSide}>
-        <Link to="/" className={styles.link}>
-          Home
-        </Link>
-        {!isAuthenticated && (
-          <Link to="/login" className={styles.loginLink}>
-            Login
-          </Link>
+        <NavLink
+          to="/"
+          className={({ isActive }) => `${styles.link} ${isActive ? styles.activeLink : ''}`}
+        >
+          Perfil
+        </NavLink>
+
+        {user?.role === 'admin' && (
+          <NavLink
+            to="/usuarios"
+            className={({ isActive }) => `${styles.link} ${isActive ? styles.activeLink : ''}`}
+          >
+            Usuarios
+          </NavLink>
         )}
       </div>
 

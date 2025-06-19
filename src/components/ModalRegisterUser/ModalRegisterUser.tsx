@@ -8,15 +8,15 @@ import styles from './ModalRegisterUser.module.css';
 
 interface ModalRegisterUserProps {
   onClose: () => void;
-  handleRegister: (user: RegisterUser) => void;
+  handleRegister?: (user: RegisterUser) => void;
   userEdit?: User | null;
-  handleEditUser: (user: EditUser) => void;
+  handleEditUser?: (user: EditUser) => void;
   handleEditUserProfile: (user: EditUserRegular) => void;
   mode: 'create' | 'editProfile' | 'editUser' | null;
-  loadingRegisterUser: boolean
+  loadingRegisterUser?: boolean
   loadingEditUser: boolean
   error: string |null
-  errorRegister: string | null
+  errorRegister?: string | null
 }
 
 const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
@@ -46,11 +46,17 @@ const ModalRegisterUser: React.FC<ModalRegisterUserProps> = ({
       return;
     }
 
-    handleRegister({ name, email, password, role });
+    if(handleRegister){
+      handleRegister({ name, email, password, role });
+    }
+    
   };
 
   const onSubmitEdit = () => {
-    handleEditUser({ id, name, email, password, role });
+    if(handleEditUser){
+      handleEditUser({ id, name, email, password, role });
+    } 
+    
   };
 
   const onSubmitEditUser = async() => {

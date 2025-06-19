@@ -1,40 +1,72 @@
+
+
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  border-bottom: 1px solid #e6e6e6;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .leftSide {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
 .link {
   text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  font-size: 1.1rem;
+  color: #222;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  background-color: #f0f0f0;
+  color: #27ae60;
 }
 
 .loginLink {
   text-decoration: none;
-  color: #007bff;
-  font-weight: 500;
+  color: #27ae60;
+  font-weight: 600;
   font-size: 1rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #27ae60;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.loginLink:hover {
+  background-color: #27ae60;
+  color: #fff;
 }
 
 .rightSide {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 1rem;
 }
 
 .userText {
-  color: #333;
-  font-size: 1rem;
+  color: #444;
+  font-size: 0.95rem;
+  background-color: #f1f1f1;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+}
+
+
+.activeLink {
+  background-color: #f0f0f0;
+  color: #27ae60;
 }

@@ -1,92 +1,99 @@
-.container {
-  padding: 30px;
-  gap: 40px;
-  display: flex;
-  flex-direction: column;
-  background-color: #F3F4F6;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-}
-
-.profileWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  background-color: #FFFFFF;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
 
 .adminPanel {
-  gap: 30px;
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  gap: 32px;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  max-width: '100%';
+  margin: 24px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 .registerButtonWrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 16px;
 }
 
+
 .registerButton {
-  background: #4D47C3;
-  color: #FFFFFF;
-  padding: 14px;
+  background-color: #4d47c3;
+  color: #fff;
+  padding: 14px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
+  box-shadow: 0 6px 15px rgba(77, 71, 195, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.registerButton:hover {
+  background-color: #3b37a0;
+  box-shadow: 0 8px 20px rgba(59, 55, 160, 0.5);
+}
+
 
 .userListWrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
+
+.userListWrapper > h1 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #2a2a2a;
+  margin-left: 12px;
+}
+
 
 .userGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding-left: 20px;
+  gap: 24px;
+  padding-left: 12px;
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-  .container {
-    padding: 16px;
-  }
 
-  .profileWrapper {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.userListWrapper > p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #555;
+  margin-left: 20px;
+}
 
+
+@media (max-width: 900px) {
   .registerButtonWrapper {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
   }
 
   .registerButton {
     width: 100%;
   }
 
-  .adminPanel {
-    padding: 16px;
-  }
-
   .userGrid {
     padding-left: 0;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .adminPanel {
+    padding: 20px 16px;
+    gap: 24px;
+  }
+
+  .userListWrapper > h1 {
+    font-size: 1.5rem;
   }
 }
