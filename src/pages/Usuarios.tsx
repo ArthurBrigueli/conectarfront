@@ -21,7 +21,7 @@ const Usuarios = ()=>{
 
 
 
-    const { user, token, logout } = useAuth();
+    const { user, token } = useAuth();
     const [users, setUsers] = useState<User[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [selectUser, setSelectUser] = useState<User | null>(null);
